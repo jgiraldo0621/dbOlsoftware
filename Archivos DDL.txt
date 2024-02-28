@@ -1,0 +1,62 @@
+CREATE DATABASE `olsoftware` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+
+-- olsoftware.inventarioequipos definition
+
+CREATE TABLE `inventarioequipos` (
+  `numero_inventario` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_equipo` varchar(100) NOT NULL,
+  `modelo_dispositivo` varchar(100) DEFAULT NULL,
+  `numero_serie` varchar(100) DEFAULT NULL,
+  `tipo_dispositivo` varchar(20) DEFAULT NULL,
+  `usuario_asignado` varchar(100) NOT NULL,
+  `estado_dispositivo` varchar(100) NOT NULL,
+  `comentarios` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`numero_inventario`),
+  KEY `inventarioequipos_FK` (`estado_dispositivo`),
+  CONSTRAINT `inventarioequipos_FK` FOREIGN KEY (`estado_dispositivo`) REFERENCES `estado` (`valor`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- olsoftware.usuarios definition
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_dni` varchar(10) NOT NULL,
+  `dni` varchar(100) NOT NULL,
+  `primer_nombre` varchar(100) NOT NULL,
+  `segundo_nombre` varchar(100) DEFAULT NULL,
+  `primer_apellido` varchar(100) NOT NULL,
+  `segundo_apellido` varchar(100) DEFAULT NULL,
+  `correo` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `rol` varchar(50) NOT NULL,
+  `area` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `usuarios_FK` (`rol`),
+  KEY `usuarios_FK_1` (`area`),
+  CONSTRAINT `usuarios_FK` FOREIGN KEY (`rol`) REFERENCES `roles` (`valor`),
+  CONSTRAINT `usuarios_FK_1` FOREIGN KEY (`area`) REFERENCES `areas` (`valor`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- olsoftware.roles definition
+
+CREATE TABLE `roles` (
+  `valor` varchar(100) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`valor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- olsoftware.estado definition
+
+CREATE TABLE `estado` (
+  `valor` varchar(100) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`valor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- olsoftware.areas definition
+
+CREATE TABLE `areas` (
+  `valor` varchar(100) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`valor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
